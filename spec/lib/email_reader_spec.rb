@@ -3,7 +3,7 @@ require 'spec_helper'
 describe EmailReader do
   describe '.retrieve_and_store' do
     def create_mail(number)
-      a_body = "Test Email #{number} Body\nFrom: Earl Falken <earl#{number}@falken.com>"
+      a_body = "Test Email #{number} Body\nFrom: Earl Falken#{number} <earl#{number}@falken.com>"
 
       Mail.new do
         from "andy#{number}@benny.com"
@@ -32,6 +32,29 @@ describe EmailReader do
       mail = SmuEmail.first
       mail.sender_email.should_not == nil
       mail.sender_name.should_not == nil
+    end
+
+    context "when the tag does not exist" do
+      it "should create a new tag" do
+        expect {
+          EmailReader.retrieve_and_store
+        }.to change(Tag, :count).by(2)
+      end
+    end
+
+    context "when tags exist" do
+      before do
+        Tag.new(name: "Earl Falken1").save
+        Tag.new(name: "Earl Falken2").save
+      end
+
+      it "should not create the tags" do
+        Tag.first(name: "Earl Falken1").should_not == nil
+        Tag.first(name: "Earl Falken2").should_not == nil
+        expect {
+          EmailReader.retrieve_and_store
+        }.to change(Tag, :count).by(0)
+      end
     end
 
     it "should remove 'Fwd:' from the subject" do

@@ -22,6 +22,16 @@ class EmailReader
                               date: Date.today,
                               sender_name: sender_data[:sender_name],
                               sender_email: sender_data[:sender_email])
+
+      tag_name = sender_data[:sender_name]
+      tag = Tag.first(name: tag_name)
+
+      if !tag
+        tag = Tag.new(name: tag_name)
+        tag.save
+      end
+
+      new_mail.tags << tag
       new_mail.save
     end
 
