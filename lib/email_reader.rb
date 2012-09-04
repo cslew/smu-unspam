@@ -17,12 +17,30 @@ class EmailReader
 
     mails.each do |mail|
       mail.subject.gsub!("Fwd: ", "")
-      new_mail = SmuEmail.new(subject: mail.subject)
+      sender_data = process_from(mail.body.encoded.split("\n").grep(/From:/)[0])
+      new_mail = SmuEmail.new(subject: mail.subject,
+                              date: Date.today,
+                              sender_name: sender_data[:sender_name],
+                              sender_email: sender_data[:sender_email])
       new_mail.save
-
-      puts mail.subject
     end
 
     puts "{\"task\": \"retrieve_and_store\", \"number_of_emails\": #{mails.length}}"
+  end
+
+  private
+  def self.process_from(line)
+    #sender_name
+    sender_name = line
+    sender_name.slice!("From: ")
+    left_arrow_index = sender_name.index("<")
+    sender_name = sender_name[0, left_arrow_index-1]
+
+    #sender_email
+    left_arrow_index = line.index("<")
+    right_arrow_index = line.index(">")
+    sender_email = line[left_arrow_index+1..right_arrow_index-1]
+
+    {sender_name: sender_name, sender_email: sender_email}
   end
 end
