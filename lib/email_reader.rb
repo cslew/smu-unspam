@@ -42,9 +42,11 @@ class EmailReader
   def self.process_from(line)
     #sender_name
     sender_name = line
-    sender_name.slice!("From: ")
+    from_index = sender_name.index("From:")
+    sender_name = sender_name[from_index+5, sender_name.length]
     left_arrow_index = sender_name.index("<")
     sender_name = sender_name[0, left_arrow_index-1]
+    sender_name.strip!
 
     #sender_email
     left_arrow_index = line.index("<")
