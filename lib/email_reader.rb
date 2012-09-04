@@ -48,7 +48,7 @@ class EmailReader
 
     #sender_email
     left_arrow_index = line.index("<")
-    right_arrow_index = line.index(">")
+    right_arrow_index = line.rindex(">")
     sender_email = line[left_arrow_index+1..right_arrow_index-1]
 
     {sender_name: sender_name, sender_email: sender_email}
