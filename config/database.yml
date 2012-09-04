@@ -1,0 +1,13 @@
+development:
+  adapter: postgresql
+  database: smu_unspam_development
+  reconnect: false
+  pool: 10
+  min_messages: WARNING
+
+test:
+  adapter: postgresql
+  database: smu_unspam_test
+  reconnect: false
+  pool: 10
+  min_messages: WARNING

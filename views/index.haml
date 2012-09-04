@@ -1,0 +1,11 @@
+%div.emails
+  %table.tables.table-striped.table-bordered.table-condensed{style: "margin-left: auto;margin-right: auto;text-align:center; font-size: 14px"}
+    %thead
+      %tr
+        %th
+          Subject
+    %tbody
+      - mails.each do |mail|
+        %tr
+          %td= mail.subject
+
