@@ -16,7 +16,7 @@ class EmailReader
     mails = Mail.all
 
     mails.each do |mail|
-      mail.subject.gsub!("Fwd: ", "")
+      mail.subject.gsub!("Fw: ", "")
       sender_data = process_from(mail.body.encoded.split("\n").grep(/From:/)[0])
       new_mail = SmuEmail.new(subject: mail.subject,
                               date: Date.today,
