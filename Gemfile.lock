@@ -2,8 +2,13 @@ GEM
   remote: http://rubygems.org/
   specs:
     addressable (2.2.8)
+    aws-s3 (0.6.3)
+      builder
+      mime-types
+      xml-simple
     backports (2.6.2)
     bcrypt-ruby (3.0.1)
+    builder (3.1.2)
     crack (0.3.1)
     daemons (1.1.8)
     data_mapper (1.2.0)
@@ -118,11 +123,13 @@ GEM
     webmock (1.8.8)
       addressable (~> 2.2.8)
       crack (>= 0.1.7)
+    xml-simple (1.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-s3 (~> 0.6.3)
   data_mapper (~> 1.2.0)
   dm-postgres-adapter (~> 1.2.0)
   dm-rspec (~> 0.2.3)

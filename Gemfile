@@ -8,6 +8,7 @@ gem "dm-postgres-adapter" , "~> 1.2.0"
 gem "mail"                , "~> 2.4.4"
 gem "haml"                , "~> 3.1.6"
 gem "rake"                , "~> 0.9.2.2"
+gem "aws-s3"              , "~> 0.6.3"
 
 group :development do
   gem "sinatra-contrib"   , "~> 1.3.1"
