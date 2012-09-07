@@ -38,6 +38,22 @@ class EmailReader
     puts "{\"task\": \"retrieve_and_store\", \"number_of_emails\": #{mails.length}}"
   end
 
+  def self.read_and_upload_attachments(mail)
+    mail.attachments.each do |attachment|
+      # Attachments is an AttachmentsList object containing a
+      # number of Part objects
+      if (attachment.content_type.start_with?('image/'))
+        filename = attachment.filename
+        begin
+          file = attachment.body.decoded
+          S3Manager.upload_attachment(filename, file)
+        rescue Exception => e
+          puts "Unable to upload attachment for #{filename} because #{e.message}"
+        end
+      end
+    end
+  end
+
   private
   def self.process_from(line)
     #sender_name
