@@ -9,4 +9,6 @@ describe SmuEmail do
 
   it { should have_many :taggings }
   it { should have_many(:tags).through(:taggings) }
+
+  it { should have_many :image_attachments }
 end

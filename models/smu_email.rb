@@ -8,4 +8,6 @@ class SmuEmail
 
   has n, :taggings
   has n, :tags, :through => :taggings
+
+  has n, :image_attachments
 end
