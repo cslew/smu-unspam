@@ -9,6 +9,8 @@ gem "mail"                , "~> 2.4.4"
 gem "haml"                , "~> 3.1.6"
 gem "rake"                , "~> 0.9.2.2"
 gem "aws-s3"              , "~> 0.6.3"
+gem "dm-pager"            , "~> 1.1.0"
+gem "dm-chunked_query"    , "~> 0.3.1"
 
 group :development do
   gem "sinatra-contrib"   , "~> 1.3.1"
