@@ -1,11 +1,21 @@
 %div.emails
-  %table.tables.table-striped.table-bordered.table-condensed{style: "margin-left: auto;margin-right: auto;text-align:center; font-size: 14px"}
+  %table.tables.table-striped.table-bordered.table-condensed{style: "margin-left: auto;margin-right: auto;text-align:left; font-size: 14px"}
     %thead
       %tr
         %th
+          Sender
+        %th
           Subject
+        %th
+          Image
     %tbody
       - mails.each do |mail|
         %tr
+          %td= mail.sender_name
           %td= mail.subject
-
+          %td
+            - mail.image_attachments.each_with_index do |ia, i|
+              - if locals[:env] == "production"
+                %a{href: ENV["S3_HOST_PRODUCTION"] + ia.filename}= "view#{i+1}"
+              - elsif locals[:env] == "staging" || locals[:env] == "development"
+                %a{href: ENV["S3_HOST_STAGING"] + ia.filename}= "view#{i+1}"
