@@ -19,7 +19,7 @@
                 %a{href: ENV["S3_HOST_PRODUCTION"] + ia.filename}= "view#{i+1}"
               - elsif locals[:env] == "staging" || locals[:env] == "development"
                 %a{href: ENV["S3_HOST_STAGING"] + ia.filename}= "view#{i+1}"
-- if search != "Search"
+- if search == "Search"
   %div.pagination.pagination-centered
     %ul
       %li
