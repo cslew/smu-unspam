@@ -19,3 +19,15 @@
                 %a{href: ENV["S3_HOST_PRODUCTION"] + ia.filename}= "view#{i+1}"
               - elsif locals[:env] == "staging" || locals[:env] == "development"
                 %a{href: ENV["S3_HOST_STAGING"] + ia.filename}= "view#{i+1}"
+%div.pagination.pagination-centered
+  %ul
+    %li
+      - if current_page > 1
+        %a{href: "?page=#{current_page-1}"}= "<<"
+      - for i in 1..page_count
+        - if i == current_page
+          %a.disabled{href: "?page=#{i}"}= "#{i}"
+        - else
+          %a.active{href: "?page=#{i}"}= "#{i}"
+      - if current_page != page_count
+        %a{href: "?page=#{current_page+1}"}= ">>"
