@@ -9,7 +9,7 @@ class S3Manager
         secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     )
 
-    S3Object.store(filename, file, ENV['s3_bucket'],
+    S3Object.store(filename, file, ENV['S3_BUCKET'],
                    access: :public_read)
   end
 end
