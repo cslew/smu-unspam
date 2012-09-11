@@ -7,9 +7,9 @@ get '/' do
   sender_name = params[:sender]
 
   if sender_name
-    mails = paginate(SmuEmail.all(sender_name: sender_name, order: [:date.desc]), params[:page], 2)
+    mails = paginate(SmuEmail.all(sender_name: sender_name, order: [:date.desc]), params[:page], 20)
   else
-    mails = paginate(SmuEmail.all(order: [:date.desc]), params[:page], 2)
+    mails = paginate(SmuEmail.all(order: [:date.desc]), params[:page], 20)
     sender_name = "Search"
   end
 
@@ -17,7 +17,7 @@ get '/' do
 
   if mails.length == 0
     params[:page] = 1
-    mails = paginate(SmuEmail.all(order: [:date.desc]), params[:page], 2)
+    mails = paginate(SmuEmail.all(order: [:date.desc]), params[:page], 20)
   end
 
   haml :index, :locals => { :env => ENV["RACK_ENV"], :mails => mails, :page_count => @page_count,
