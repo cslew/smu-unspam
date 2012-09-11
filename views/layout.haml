@@ -14,4 +14,7 @@
           %div.container
             %a.brand{href: "/"}
               SMU Unspam
+            %form.navbar-search.pull-left{action: "/", method: "get"}
+              %input.search-query{type: "text", :"data-provide" => "typeahead", "data-source" => tags_js_array,
+              placeholder: search, style: "margin-top: 5  ;", name: "sender"}
       =yield

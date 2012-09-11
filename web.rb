@@ -4,7 +4,16 @@ require 'sinatra'
 require_relative File.join('config', "shared.rb")
 
 get '/' do
-  mails = paginate(SmuEmail.all(order: [:date.desc]), params[:page], 2)
+  sender_name = params[:sender]
+
+  if sender_name
+    mails = paginate(SmuEmail.all(sender_name: sender_name, order: [:date.desc]), params[:page], 2)
+  else
+    mails = paginate(SmuEmail.all(order: [:date.desc]), params[:page], 2)
+    sender_name = "Search"
+  end
+
+  tags_js_array = "[" + Tag.all.map { |tag| "\"#{tag.name}\"" }.join(", ") + "]"
 
   if mails.length == 0
     params[:page] = 1
@@ -12,7 +21,8 @@ get '/' do
   end
 
   haml :index, :locals => { :env => ENV["RACK_ENV"], :mails => mails, :page_count => @page_count,
-                            :current_page => params[:page].to_i }
+                            :current_page => params[:page].to_i, :tags_js_array => tags_js_array,
+                            :search => sender_name}
 end
 
 def paginate(query, page, per_page)
