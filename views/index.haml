@@ -16,7 +16,7 @@
           %td
             - mail.image_attachments.each_with_index do |ia, i|
               %a{href: "/attachment?id=" + ia.id.to_s}= "view "
-- if search == "Search"
+- if search == "Search" && page_count > 1
   %div.pagination.pagination-centered
     %ul
       %li
