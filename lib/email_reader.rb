@@ -3,10 +3,10 @@ require 'mail'
 class EmailReader
   def self.config
     Mail.defaults do
-      retriever_method :pop3, :address => ENV['email_server'],
-                       :port => ENV['email_port'],
-                       :user_name => ENV['email_user_name'],
-                       :password => ENV['email_password'],
+      retriever_method :pop3, :address => ENV['EMAIL_SERVER'],
+                       :port => ENV['EMAIL_PORT'],
+                       :user_name => ENV['EMAIL_USER_NAME'],
+                       :password => ENV['EMAIL_PASSWORD'],
                        :enable_ssl => true
     end
   end

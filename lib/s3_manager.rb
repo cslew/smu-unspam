@@ -5,8 +5,8 @@ class S3Manager
 
   def self.upload_attachment(filename, file)
     AWS::S3::Base.establish_connection!(
-        access_key_id: ENV['aws_access_key_id'],
-        secret_access_key: ENV['aws_secret_access_key']
+        access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
     )
 
     S3Object.store(filename, file, ENV['s3_bucket'],
