@@ -15,10 +15,7 @@
           %td= mail.subject
           %td
             - mail.image_attachments.each_with_index do |ia, i|
-              - if locals[:env] == "production"
-                %a{href: ENV["S3_HOST_PRODUCTION"] + ia.filename}= "view#{i+1}"
-              - elsif locals[:env] == "staging" || locals[:env] == "development"
-                %a{href: ENV["S3_HOST_STAGING"] + ia.filename}= "view#{i+1}"
+              %a{href: "/attachment?id=" + ia.id.to_s}= "view "
 - if search == "Search"
   %div.pagination.pagination-centered
     %ul

@@ -1,0 +1,6 @@
+%div.attachment
+  - if locals[:env] == "production"
+    %img{src: ENV["S3_HOST_PRODUCTION"] + filename}
+  - elsif locals[:env] == "staging" || locals[:env] == "development"
+    %img{src: ENV["S3_HOST_STAGING"] + filename}
+
