@@ -8,7 +8,7 @@ describe EmailReader do
       Mail.new do
         from "andy#{number}@benny.com"
         to "caroll#{number}@danny.com"
-        subject "Fwd: Test Email #{number} Subject"
+        subject "Fw: Test Email #{number} Subject"
         body a_body
       end
     end
