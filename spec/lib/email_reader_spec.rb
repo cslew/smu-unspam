@@ -57,10 +57,10 @@ describe EmailReader do
       end
     end
 
-    it "should remove 'Fwd:' from the subject" do
+    it "should remove 'Fw:' from the subject" do
       EmailReader.retrieve_and_store
       mail = SmuEmail.first
-      mail.subject.index("Fwd:").should == nil
+      mail.subject.index("Fw:").should == nil
     end
   end
 end
