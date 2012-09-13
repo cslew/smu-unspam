@@ -15,7 +15,12 @@ class EmailReader
     EmailReader.config
     mails = Mail.all
 
+    total = 0
+    success = 0
+    failed = 0
+
     mails.each do |mail|
+      total = total + 1
       original_subject = mail.subject
       puts "{\"processing\": \"#{original_subject}\", \"start_time\": #{Time.now.to_i}}"
 
@@ -23,8 +28,14 @@ class EmailReader
       sender_data = process_from(mail.body.encoded.split("\n").grep(/From:/)[0])
 
       if sender_data[:success] == 0
-        puts "No sender name, skipping email."
         puts "{\"processing\": \"#{mail.subject}\", \"end_time\": #{Time.now.to_i}, \"success\": 0, \"error_message\": sender_data[:error_message]}"
+        failed = failed + 1
+        next
+      end
+
+      if mail.attachments.length == 0
+        puts "{\"processing\": \"#{mail.subject}\", \"end_time\": #{Time.now.to_i}, \"success\": 0, \"error_message\": \"no attachment\"}"
+        failed = failed + 1
         next
       end
 
@@ -47,9 +58,10 @@ class EmailReader
       read_and_upload_attachments(mail, new_mail)
 
       puts "{\"processing\": \"#{original_subject}\", \"end_time\": #{Time.now.to_i}, \"success\": 1}"
+      success = success + 1
     end
 
-    puts "{\"task\": \"retrieve_and_store\", \"number_of_emails\": #{mails.length}}"
+    puts "{\"task\": \"retrieve_and_store\", \"total\": #{total}, \"success\": #{success}, \"failed\": #{failed}}"
   end
 
   private
