@@ -70,7 +70,7 @@ class EmailReader
       # Attachments is an AttachmentsList object containing a
       # number of Part objects
       if (attachment.content_type.start_with?('image/'))
-        filename = "#{Time.now.to_i.to_s}-#{attachment.filename}"
+        filename = "#{Time.now.to_i.to_s}-#{smu_email.id}-#{attachment.filename}"
         begin
           file = attachment.body.decoded
           S3Manager.upload_attachment(filename, file)
