@@ -34,6 +34,11 @@ get '/attachment' do
                                  :search => "Search"}
 end
 
+get '/notice' do
+  tags_js_array = "[" + Tag.all.map { |tag| "\"#{tag.name}\"" }.join(", ") + "]"
+  haml :notice, :locals => { :env => ENV["RACK_ENV"], :tags_js_array => tags_js_array, :search => "Search" }
+end
+
 def paginate(query, page, per_page)
   @page = (page || 1).to_i
   @per_page = (per_page || 10).to_i
